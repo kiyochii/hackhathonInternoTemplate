@@ -45,8 +45,7 @@ function App() {
   return (
     
     <div>
-            <Header /> {/* Adiciona o Header em todas as páginas */}
-
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/availbletasks" element={<AvailableTasks />} />
