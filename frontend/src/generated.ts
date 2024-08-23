@@ -6,39 +6,6 @@ import {
 } from 'wagmi/codegen'
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Counter
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const counterAbi = [
-  {
-    type: 'constructor',
-    inputs: [{ name: '_i', internalType: 'int256', type: 'int256' }],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'dec',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'i',
-    outputs: [{ name: '', internalType: 'int256', type: 'int256' }],
-    stateMutability: 'view',
-  },
-  {
-    type: 'function',
-    inputs: [],
-    name: 'inc',
-    outputs: [],
-    stateMutability: 'nonpayable',
-  },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Lock
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -91,69 +58,55 @@ export const lockAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// React
+// Storage
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link counterAbi}__
- */
-export const useReadCounter = /*#__PURE__*/ createUseReadContract({
-  abi: counterAbi,
-})
+export const storageAbi = [
+  { type: 'constructor', inputs: [], stateMutability: 'nonpayable' },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_addres', internalType: 'address', type: 'address' },
+      { name: '_price', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'Pay',
+    outputs: [],
+    stateMutability: 'payable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'qnt', internalType: 'uint256', type: 'uint256' }],
+    name: 'Withdraw',
+    outputs: [],
+    stateMutability: 'payable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: '_price', internalType: 'uint256', type: 'uint256' },
+      { name: '_service', internalType: 'string', type: 'string' },
+    ],
+    name: 'setVendor',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'vendor',
+    outputs: [
+      { name: 'price', internalType: 'uint256', type: 'uint256' },
+      { name: 'balance', internalType: 'uint256', type: 'uint256' },
+      { name: 'service', internalType: 'string', type: 'string' },
+      { name: '_address', internalType: 'address', type: 'address' },
+    ],
+    stateMutability: 'view',
+  },
+] as const
 
-/**
- * Wraps __{@link useReadContract}__ with `abi` set to __{@link counterAbi}__ and `functionName` set to `"i"`
- */
-export const useReadCounterI = /*#__PURE__*/ createUseReadContract({
-  abi: counterAbi,
-  functionName: 'i',
-})
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link counterAbi}__
- */
-export const useWriteCounter = /*#__PURE__*/ createUseWriteContract({
-  abi: counterAbi,
-})
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link counterAbi}__ and `functionName` set to `"dec"`
- */
-export const useWriteCounterDec = /*#__PURE__*/ createUseWriteContract({
-  abi: counterAbi,
-  functionName: 'dec',
-})
-
-/**
- * Wraps __{@link useWriteContract}__ with `abi` set to __{@link counterAbi}__ and `functionName` set to `"inc"`
- */
-export const useWriteCounterInc = /*#__PURE__*/ createUseWriteContract({
-  abi: counterAbi,
-  functionName: 'inc',
-})
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link counterAbi}__
- */
-export const useSimulateCounter = /*#__PURE__*/ createUseSimulateContract({
-  abi: counterAbi,
-})
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link counterAbi}__ and `functionName` set to `"dec"`
- */
-export const useSimulateCounterDec = /*#__PURE__*/ createUseSimulateContract({
-  abi: counterAbi,
-  functionName: 'dec',
-})
-
-/**
- * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link counterAbi}__ and `functionName` set to `"inc"`
- */
-export const useSimulateCounterInc = /*#__PURE__*/ createUseSimulateContract({
-  abi: counterAbi,
-  functionName: 'inc',
-})
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// React
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link lockAbi}__
@@ -220,4 +173,83 @@ export const useWatchLockWithdrawalEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
     abi: lockAbi,
     eventName: 'Withdrawal',
+  })
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link storageAbi}__
+ */
+export const useReadStorage = /*#__PURE__*/ createUseReadContract({
+  abi: storageAbi,
+})
+
+/**
+ * Wraps __{@link useReadContract}__ with `abi` set to __{@link storageAbi}__ and `functionName` set to `"vendor"`
+ */
+export const useReadStorageVendor = /*#__PURE__*/ createUseReadContract({
+  abi: storageAbi,
+  functionName: 'vendor',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link storageAbi}__
+ */
+export const useWriteStorage = /*#__PURE__*/ createUseWriteContract({
+  abi: storageAbi,
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link storageAbi}__ and `functionName` set to `"Pay"`
+ */
+export const useWriteStoragePay = /*#__PURE__*/ createUseWriteContract({
+  abi: storageAbi,
+  functionName: 'Pay',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link storageAbi}__ and `functionName` set to `"Withdraw"`
+ */
+export const useWriteStorageWithdraw = /*#__PURE__*/ createUseWriteContract({
+  abi: storageAbi,
+  functionName: 'Withdraw',
+})
+
+/**
+ * Wraps __{@link useWriteContract}__ with `abi` set to __{@link storageAbi}__ and `functionName` set to `"setVendor"`
+ */
+export const useWriteStorageSetVendor = /*#__PURE__*/ createUseWriteContract({
+  abi: storageAbi,
+  functionName: 'setVendor',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link storageAbi}__
+ */
+export const useSimulateStorage = /*#__PURE__*/ createUseSimulateContract({
+  abi: storageAbi,
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link storageAbi}__ and `functionName` set to `"Pay"`
+ */
+export const useSimulateStoragePay = /*#__PURE__*/ createUseSimulateContract({
+  abi: storageAbi,
+  functionName: 'Pay',
+})
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link storageAbi}__ and `functionName` set to `"Withdraw"`
+ */
+export const useSimulateStorageWithdraw =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: storageAbi,
+    functionName: 'Withdraw',
+  })
+
+/**
+ * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link storageAbi}__ and `functionName` set to `"setVendor"`
+ */
+export const useSimulateStorageSetVendor =
+  /*#__PURE__*/ createUseSimulateContract({
+    abi: storageAbi,
+    functionName: 'setVendor',
   })
