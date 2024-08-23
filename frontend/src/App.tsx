@@ -3,6 +3,8 @@ import AvailableTasks from './availabletasks/Availabletasks';
 import NewTasks from './newtasks/NewTasks';
 import agendaIcon from './images/agenda.jpg'; 
 import pedidoIcon from './images/pedido.png'; 
+import "@rainbow-me/rainbowkit/styles.css";
+
 
 function Home() {
   const navigate = useNavigate();

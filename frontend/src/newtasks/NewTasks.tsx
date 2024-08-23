@@ -1,90 +1,93 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
-import { useContractWrite } from "wagmi";
-
+import { useWriteStorageSetVendor } from "../generated"; // Atualize o caminho conforme necessário
 
 export default function App() {
   const [newTask, setTask] = useState<string>("");
   const [payment, setPayment] = useState<number | "">("");
 
-  /* const { writeContractAsync, isSuccess, isError, isPending } =
-    useWriteCounterSetVendor();*/
+  const { writeContractAsync: writeContractAsync, isSuccess, isError, isPending } =
+    useWriteStorageSetVendor();
 
   const { address: accountAddress } = useAccount();
   const strippedAddress: string | undefined = accountAddress as string;
 
-  const handleSetTask = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTask(event.target.value === "" ? "" : String(event.target.value));
+  const handleSetTask = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTask(event.target.value);
   };
-
+  
   const handleSetPayment = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPayment(event.target.value === "" ? "" : Number(event.target.value));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await writeContractAsync({
-      address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
-      args: [String(newTask), BigInt(payment)],
-    });
+    try {
+      await writeContractAsync({
+        address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
+        args: [BigInt(payment), newTask],
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
-    <main style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0px' }}>
-      <div style={{ fontSize: '2rem', fontWeight: '700', textAlign: 'center' }}>Vendor Registration</div>
-      <br />
-      <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
-        <header>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="string"
-              value={newTask}
-              onChange={handleSetTask}
-              placeholder="Digite a tarefa a ser pedida:"
-              className="px-4 py-2 border rounded"
-            />
-            <input
-              type="number"
-              value={payment}
-              onChange={handleSetPayment}
-              placeholder="Digite o valor para o comprimento da tarefa:"
-              className="px-4 py-2 border rounded"
-            />
-            
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
-                disabled={isPending}
-              >
-                {isPending ? "Submitting..." : "Submit"}
-              </button>
-            </div>
-          </form>
+    <main style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '95vh' }}>
+      <div style={{ fontSize: '4rem', fontWeight: '700', marginBottom: '30px' }}>Crie sua tarefa</div>
+      <div>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <textarea
+          value={newTask}
+          onChange={handleSetTask}
+          placeholder="Digite a tarefa a ser pedida...."
+          className="px-4 py-2 border rounded"
+          style={{
+            fontFamily: 'Arial, sans-serif',
+            borderRadius: '12px',
+            marginBottom: '24px',
+            width: '400px',
+            height: '80px',
+            fontSize: '1.2rem',
+            padding: '10px',
+            overflowWrap: 'break-word',
+            resize: 'none',
+            border: '2px solid black',
+            backgroundColor: '#F0F8FF'
+           }}
+          />
+          <input
+            type="number"
+            value={payment}
+            onChange={handleSetPayment}
+            placeholder="Digite o valor para o cumprimento da tarefa..."
+            className="px-4 py-2 border rounded"
+            style={{backgroundColor: '#F0F8FF', border: '2px solid black', borderRadius: '12px', textAlign: 'center', marginBottom: '24px', width: '350px', height: '30px', fontSize: '1rem', padding: '10px', resize: 'none'}}
+          />
+          
+          <button
+            type="submit"
+            disabled={isPending}
+            style={{
+              padding: '10px 20px',
+              fontSize: '1.5rem',
+              backgroundColor: isPending ? '#6c757d' : '#2196F3', // Cor de fundo: cinza quando está desabilitado, azul quando ativo
+              borderRadius: '8px', 
+              transition: 'transform 0.2s ease'
+            }}
+              onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.95)'} 
+              onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'} 
+            >
+            {isPending ? "Submitting..." : "Submit"}
+          </button>
+        </form>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '10px' }}>
           {isSuccess && (
-            <p style={{ color: 'green', marginTop: '16px', fontSize: '1.2rem' }}>Tarefa criada com sucesso!</p>
-          )}
-          {isError && <p style={{ color: 'red', marginTop: '16px', fontSize: '1.5rem', fontWeight: '700' }}>Error:</p>}
-        </header>
+            <p style={{ color: 'green', fontSize: '1.5rem', fontWeight: '600'}}>Tarefa criada com sucesso!</p>)}
+          {isError && (
+            <p style={{ color: 'red', fontSize: '1.5rem', fontWeight: '700' }}>Erro: Tarefa não foi criada.</p>)}
+        </div>
       </div>
     </main>
   );
 }
-
-
-
-
-
-/* 
-  return (
-    <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh', textAlign: 'center' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h1 style={{ fontSize: '100px', marginBottom: '20px' }}>
-          To Doing
-        </h1>
-      </div>
-    </main>
-  );
-}
-  
-  export default App;*/
