@@ -1,18 +1,39 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.24;
+// SPDX-License-Identifier: GPL-3.0
 
-contract Counter {
-    int public i;
+pragma solidity >=0.8.2 <0.9.0;
 
-    constructor(int _i) {
-        i = _i;
+contract Storage {
+    address owner;  
+    constructor(){
+        owner = msg.sender;
+    }
+    uint256 number;
+    struct Vendor {
+        
+        uint price;
+        uint balance;
+        string service;
+        address _address;
+
     }
 
-    function inc() public {
-        i++;
+    mapping(address => Vendor) public vendor;
+
+    function setVendor(uint _price, string memory _service ) public {
+        vendor[msg.sender] = Vendor( _price, 0,_service, msg.sender);
     }
 
-    function dec() public {
-        i--;
+    function Pay (address _addres, uint _price) public payable {
+        require(msg.value >= _price);
+        vendor[_addres].balance += msg.value;
     }
+
+    function Withdraw(uint qnt) public payable {
+        require(qnt <= vendor[msg.sender].balance);
+        vendor[msg.sender].balance -= qnt;
+        payable(msg.sender).transfer(qnt);
+    }
+    
 }
+
+   
