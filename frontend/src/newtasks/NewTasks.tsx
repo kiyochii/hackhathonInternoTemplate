@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
-import { useWriteStorageSetVendor } from "../generated"; // Atualize o caminho conforme necessário
-
+import { useWriteStorageSetVendor } from "../generated";
 export default function App() {
   const [newTask, setTask] = useState<string>("");
   const [payment, setPayment] = useState<number | "">("");
