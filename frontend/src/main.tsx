@@ -2,11 +2,12 @@ import { Buffer } from "buffer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { WagmiProvider } from "wagmi";
+import { WagmiConfig } from "wagmi";
 import { BrowserRouter as Router } from "react-router-dom";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 import App from "./App.tsx";
-import { config } from "./wagmi.ts";
+import { config } from "./wagmi.ts";  // Presumo que você tenha configurado o wagmi aqui
 
 import "./index.css";
 
@@ -20,13 +21,15 @@ if (rootElement === null) {
 } else {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <WagmiProvider config={config}>
+      <WagmiConfig config={config}>
         <QueryClientProvider client={queryClient}>
-          <Router>
-            <App />
-          </Router>
+          <RainbowKitProvider>
+            <Router>
+              <App />
+            </Router>
+          </RainbowKitProvider>
         </QueryClientProvider>
-      </WagmiProvider>
+      </WagmiConfig>
     </React.StrictMode>,
   );
 }

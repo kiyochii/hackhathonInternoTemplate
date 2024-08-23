@@ -32,7 +32,7 @@ export default function App() {
   };
 
   return (
-    <main style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '95vh' }}>
+    <main style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '85vh' }}>
       <div style={{ fontSize: '4rem', fontWeight: '700', marginBottom: '30px' }}>Crie sua tarefa</div>
       <div>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
