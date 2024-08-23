@@ -25,6 +25,8 @@
   border: none;
   color: #fff;
   padding: 15px 32px;
+  width: 250px; 
+  height: 80px; 
   text-align: center;
   text-decoration: none;
   display: inline-block;
