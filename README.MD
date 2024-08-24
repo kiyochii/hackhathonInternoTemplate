@@ -1,63 +1,49 @@
-# Template para o Ethereum 2024
+# Tasks Help
 
-[Visite o site](https://esquenta-eth-samba.pages.dev/)
+### Visão Geral
+Este projeto é uma plataforma de pedido de tarefas e execução delas, mediante a pagamento. Permitindo um sistema freelance através de contratos inteligentes.
 
-Este projeto divide-se em duas partes: a primeira é o `hardhat`, que envolve o desenvolvimento do contrato, e a segunda, é o `frontend`, construído usando `React`.
+### Objetivo
+O objetivo do projeto é conectar e, por consequência, e integrar pessoas que tem necessidades específicas com pessoas que tem as habilidades necessárias para executa-las. Dessa forma, constituindo-se de uma ferramenta que contribui para facilitar o dia a dia e uma possível fonte de renda para o usário.
 
-A conexão entre essas duas partes é o grande desafio. Para isso, utilizei a biblioteca `wagmi` e o comando `wagmi-cli` para auxiliar nas chamadas ao contrato.
+### Tecnologias Utilizadas
 
-## Hardhat
+- **Vite**: Framework de desenvolvimento web para o front-end em React.
+- **Solidity**: Linguagem de programação para contratos inteligentes na Ethereum.
+- **Wagmi**: Biblioteca para trabalhar com contratos inteligentes e interagir com a blockchain.
+- **RainbowKit**: Conjunto de ferramentas para integração de carteiras.
+- **Vercel**: Plataforma para estruturação e conexão do banco de dados.
+- **Supabase**: Banco de dados usado no projeto.
+- **Template Ethereum 2024**: Template para facilitar o uso e a conexão do hardhat e do frontend (desenvolvido em React).
 
-Aqui, temos o template inicial do hardhat. Para realizar o ciclo completo do contrato, basta seguir os seguintes passos:
+### Funcionalidades
 
-1. Desenvolver os contratos na pasta `contracts` e, em sequência, construir os testes, que estão localizados na pasta `hardhat/test`. Para executar os testes, basta:
+- **Compra de Energia:** Permite que os usuários comprem energia através de contratos inteligentes.
+- **Venda de Energia:** Permite que os usuários vendam energia renovável não utilizada e configurem sua própria localização como uma estação de carregamento de veículos elétricos.
+- **Integração com Carteiras:** Usa o RainbowKit para conectar carteiras de criptomoedas.
+- **Interação com Contratos:** Usa o Wagmi para facilitar a interação com contratos inteligentes.
 
-   ```bash
-   npx hardhat run test
+### Link de Deploy
+[Tasks Help](link)
+
+### Instalação e Execução Local
+
+1. Clone este repositório:
+    ```bash
+    git clone https://github.com/kiyochii/hackhathonInternoTemplate.git
+    cd hackhathonInternoTemplate//
+    ```
+2. Instale as dependências na pasta do projeto:
+    ```bash
+    cd hardhat
+    npm i
+
+    cd ..
+
+    cd frontend
+    npm i
    ```
-
-2. Agora, para realizar o deploy do contrato, é necessário definir a rede. Se for a rede local, primeiro certifique-se de que ela está em funcionamento:
-
+3. Inicie o servidor localmente:
    ```bash
-   npx hardhat node
+   npm run dev
    ```
-
-   2.1 Em outro terminal, execute o script para realizar o deploy do seu contrato.
-
-   ```bash
-   npx hardhat run scripts/deploy.ts --network localhost
-   ```
-
-   Caso pretenda fazer o deploy em uma rede de testes, não é necessário executar o node localmente. Basta adicionar as variáveis de ambiente `ALCHEMY_API_KEY` e `SEPOLIA_PRIVATE_KEY` no arquivo `.env` e executar:
-
-   ```bash
-   npx hardhat run scripts/deploy.ts --network sepolia
-   ```
-
-3. Também é possível verificar o contrato na rede, através do `etherscan`. Para isso, adicione a chave da API na variável `ETHERSCAN_API_KEY` no arquivo `.env` e, por fim, execute o comando:
-
-   ```bash
-   npx hardhat verify --network sepolia <address> <constructor arguments>
-   ```
-
-## Frontend
-
-Com o `Hardhat` configurado, podemos prosseguir com o desenvolvimento do `Frontend`. O principal componente que realiza a conexão do `frontend` com a blockchain é o `wagmi-cli`. Esta biblioteca está configurada no arquivo `wagmi.config.ts` para procurar pelo projeto do `hardhat`. Assim, é possível gerar os `React Hooks` usando o seguinte comando:
-
-```bash
-npx wagmi generate
-```
-
-Isso gera o arquivo `src/generated.ts`, que contém as chamadas para escrita e leitura do contrato. Estas chamadas são tipadas e oferecem auto-completar.
-
-Por fim, para interagir com o contrato, é necessário adicionar o endereço do mesmo no arquivo `.env`. Atualmente, esse processo é realizado de forma manual.
-
-## Deploy
-
-Este site não pretende ser um site dinâmico, mas sim uma web app estática. Para realizar o build e, por fim, o deploy, execute os seguintes comandos:
-
-```bash
-npm run build
-```
-
-Depois, escolha qualquer ferramenta de hosting, como, por exemplo, [Firebase Hosting](https://firebase.google.com/docs/hosting), [Cloudflare Pages](https://pages.cloudflare.com/), ou [Vercel](https://vercel.com).
