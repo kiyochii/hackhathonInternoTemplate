@@ -8,7 +8,7 @@ import Vendor from "./vendor/vendor";
 import Availabletasks from "./availabletasks/Availabletasks";
 import TaskDetail from "./availabletasks/TaskDetail";
 import Header from "./Header";
-
+import Withdraw from "./vendor/withdraw/withdraw";
 import MyTasks from "./vendor/mytasks/mytasks";
 
 function Home() {
@@ -51,8 +51,8 @@ function App() {
 
         <Route path="/availbletasks" element={<AvailableTasks />} />
         <Route path="/vendor/newtasks" element={<NewTasks />} />
-        <Route path="/vendor/mytasks" element={<MyTasks />} />
-
+        <Route path="/vendor/mytask" element={<MyTasks />} />
+        <Route path="/vendor/withdraw" element={<Withdraw />} />
         <Route path="/tasks" element={<Availabletasks />} />
         <Route path="/tasks/:id" element={<TaskDetail />} />
       </Routes>
