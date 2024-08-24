@@ -18,7 +18,7 @@ function Home() {
     <main
       style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70vh", textAlign: "center" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <h1 style={{ fontSize: "100px", marginBottom: "20px" }}>To Doing</h1>
+        <h1 style={{ fontSize: "100px", marginBottom: "20px" }}>Tasks Help</h1>
 
         <button
           className="botao"
