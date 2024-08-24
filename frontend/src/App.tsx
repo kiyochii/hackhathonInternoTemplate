@@ -5,6 +5,8 @@ import agendaIcon from './images/agenda.jpg';
 import pedidoIcon from './images/pedido.png'; 
 import "@rainbow-me/rainbowkit/styles.css";
 import Header from './Header';
+import Availabletasks from './availabletasks/Availabletasks';
+import TaskDetail from './availabletasks/TaskDetail';
 
 
 function Home() {
@@ -51,6 +53,12 @@ function App() {
         <Route path="/availbletasks" element={<AvailableTasks />} />
         <Route path="/newtasks" element={<NewTasks />} />
       </Routes>
+      
+      <Routes>
+        <Route path="/tasks" element={<Availabletasks/>} />
+        <Route path="/tasks/:id" element={<TaskDetail />} /> 
+      </Routes>
+    
       
     </div>
   );
