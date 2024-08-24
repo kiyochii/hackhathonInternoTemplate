@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 import App from "./App.tsx";
-import { config } from "./wagmi.ts";  // Presumo que você tenha configurado o wagmi aqui
+import { config } from "./wagmi.ts"; // Presumo que você tenha configurado o wagmi aqui
 
 import "./index.css";
 
