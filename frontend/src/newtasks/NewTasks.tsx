@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import { useWriteStorageSetVendor } from "../generated";
+import { supabaseClient } from "../supabaseClient";
+
 export default function App() {
   const [newTask, setTask] = useState<string>("");
   const [payment, setPayment] = useState<number | "">("");
 
-  const { writeContractAsync: writeContractAsync, isSuccess, isError, isPending } =
-    useWriteStorageSetVendor();
-
+  const { writeContractAsync, isSuccess, isError, isPending } = useWriteStorageSetVendor();
   const { address: accountAddress } = useAccount();
   const strippedAddress: string | undefined = accountAddress as string;
 
   const handleSetTask = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTask(event.target.value);
   };
-  
+
   const handleSetPayment = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPayment(event.target.value === "" ? "" : Number(event.target.value));
   };
@@ -26,6 +26,18 @@ export default function App() {
         address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
         args: [BigInt(payment), newTask],
       });
+
+      const { error } = await supabaseClient
+        .from('tasks')
+        .insert([
+          { task: newTask, payment, address: strippedAddress },
+        ]);
+
+      if (error) {
+        console.error("Error inserting data into Supabase:", error);
+      } else {
+        console.log("Data successfully inserted into Supabase");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -36,24 +48,24 @@ export default function App() {
       <div style={{ fontSize: '4rem', fontWeight: '700', marginBottom: '30px' }}>Crie sua tarefa</div>
       <div>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <textarea
-          value={newTask}
-          onChange={handleSetTask}
-          placeholder="Digite a tarefa a ser pedida...."
-          className="px-4 py-2 border rounded"
-          style={{
-            fontFamily: 'Arial, sans-serif',
-            borderRadius: '12px',
-            marginBottom: '24px',
-            width: '400px',
-            height: '80px',
-            fontSize: '1.2rem',
-            padding: '10px',
-            overflowWrap: 'break-word',
-            resize: 'none',
-            border: '2px solid black',
-            backgroundColor: '#F0F8FF'
-           }}
+          <textarea
+            value={newTask}
+            onChange={handleSetTask}
+            placeholder="Digite a tarefa a ser pedida...."
+            className="px-4 py-2 border rounded"
+            style={{
+              fontFamily: 'Arial, sans-serif',
+              borderRadius: '12px',
+              marginBottom: '24px',
+              width: '400px',
+              height: '80px',
+              fontSize: '1.2rem',
+              padding: '10px',
+              overflowWrap: 'break-word',
+              resize: 'none',
+              border: '2px solid black',
+              backgroundColor: '#F0F8FF'
+            }}
           />
           <input
             type="number"
@@ -74,9 +86,9 @@ export default function App() {
               borderRadius: '8px', 
               transition: 'transform 0.2s ease'
             }}
-              onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.95)'} 
-              onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'} 
-            >
+            onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.95)'} 
+            onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
             {isPending ? "Submitting..." : "Submit"}
           </button>
         </form>
