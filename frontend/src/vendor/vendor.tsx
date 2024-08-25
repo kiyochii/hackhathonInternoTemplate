@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useAccount } from 'wagmi';
 import lampadaIcon from "../images/lampada.png";
 import saqueIcon from "../images/saque.png";
 
 export default function App() {
   const navigate = useNavigate();
+  const { address } = useAccount(); // Obtém o endereço da MetaMask
 
   return (
     <main
@@ -73,6 +75,39 @@ export default function App() {
         />
         <span style={{ flex: 1, textAlign: "left" }}>Saque</span>
       </button>
+
+      <button
+        className="botao"
+        style={{ 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          padding: "20px", 
+          fontSize: "30px", 
+          margin: "15px 0", 
+          width: "280px",
+        }}
+  onClick={() => {
+    if (address) {
+      navigate(`/vendor/mytasks/${address}`);
+    } else {
+      console.error('Conecte-se ao MetaMask');
+    }
+  }}
+  disabled={!address} 
+      ><img 
+        src={saqueIcon} 
+        style={{ 
+          width: "60px", 
+          height: "60px", 
+          marginRight: "40px",             
+          objectFit: "contain" 
+          }} 
+      />
+  <span style={{ flex: 1, textAlign: "center" }}>Minhas Tarefas</span>
+</button>
+
+
     </main>
   );
 }
