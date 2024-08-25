@@ -18,19 +18,20 @@ O objetivo do projeto é conectar e, por consequência, e integrar pessoas que t
 
 ### Funcionalidades
 
-- **Compra de Energia:** Permite que os usuários comprem energia através de contratos inteligentes.
-- **Venda de Energia:** Permite que os usuários vendam energia renovável não utilizada e configurem sua própria localização como uma estação de carregamento de veículos elétricos.
+- **Pedido de tarefas:** Permite que os usuários enviem as suas necessidades e sejam respondidos por pessoas com habilidade para tal.
+- **Resolução de tarefas:** Permite que os usuários resolvam tarefas mediante a um pagamento.
 - **Integração com Carteiras:** Usa o RainbowKit para conectar carteiras de criptomoedas.
 - **Interação com Contratos:** Usa o Wagmi para facilitar a interação com contratos inteligentes.
 
 ### Link de Deploy
-[Tasks Help](link)
+[Tasks Help](https://hackhathon-interno-template.vercel.app/)
 
 ### Instalação e Execução Local
 
 1. Clone este repositório:
     ```bash
     git clone https://github.com/kiyochii/hackhathonInternoTemplate.git
+
     cd hackhathonInternoTemplate//
     ```
 2. Instale as dependências na pasta do projeto:
@@ -46,4 +47,6 @@ O objetivo do projeto é conectar e, por consequência, e integrar pessoas que t
 3. Inicie o servidor localmente:
    ```bash
    npm run dev
+
+   http://localhost:5173/
    ```
