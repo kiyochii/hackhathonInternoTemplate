@@ -67,7 +67,7 @@ export const storageAbi = [
     type: 'function',
     inputs: [
       { name: '_addres', internalType: 'address', type: 'address' },
-      { name: '_price', internalType: 'uint256', type: 'uint256' },
+     
     ],
     name: 'Pay',
     outputs: [],
@@ -75,7 +75,6 @@ export const storageAbi = [
   },
   {
     type: 'function',
-    inputs: [{ name: 'qnt', internalType: 'uint256', type: 'uint256' }],
     name: 'Withdraw',
     outputs: [],
     stateMutability: 'payable',

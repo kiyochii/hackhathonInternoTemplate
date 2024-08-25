@@ -1,9 +1,11 @@
 # Tasks Help
 
 ### Visão Geral
+
 Este projeto é uma plataforma de pedido de tarefas e execução delas, mediante a pagamento. Permitindo um sistema freelance através de contratos inteligentes.
 
 ### Objetivo
+
 O objetivo do projeto é conectar e, por consequência, e integrar pessoas que tem necessidades específicas com pessoas que tem as habilidades necessárias para executa-las. Dessa forma, constituindo-se de uma ferramenta que contribui para facilitar o dia a dia e uma possível fonte de renda para o usário.
 
 ### Tecnologias Utilizadas
@@ -24,27 +26,38 @@ O objetivo do projeto é conectar e, por consequência, e integrar pessoas que t
 - **Interação com Contratos:** Usa o Wagmi para facilitar a interação com contratos inteligentes.
 
 ### Link de Deploy
+
 [Tasks Help](https://hackhathon-interno-template.vercel.app/)
+
+### Deploy do contrato
+
+0x68383898df826e4c00a80bb23f13573bc57755c9
+[Etherscan](https://sepolia.etherscan.io/tx/0xc51b0c17fed99b84ea5dceb7ff0a3488da838d3b1016125445c5c9fefbd67d30)
 
 ### Instalação e Execução Local
 
 1. Clone este repositório:
-    ```bash
-    git clone https://github.com/kiyochii/hackhathonInternoTemplate.git
 
-    cd hackhathonInternoTemplate//
-    ```
-2. Instale as dependências na pasta do projeto:
-    ```bash
-    cd hardhat
-    npm i
+   ```bash
+   git clone https://github.com/kiyochii/hackhathonInternoTemplate.git
 
-    cd ..
-
-    cd frontend
-    npm i
+   cd hackhathonInternoTemplate//
    ```
+
+2. Instale as dependências na pasta do projeto:
+
+   ```bash
+   cd hardhat
+   npm i
+
+   cd ..
+
+   cd frontend
+   npm i
+   ```
+
 3. Inicie o servidor localmente:
+
    ```bash
    npm run dev
 

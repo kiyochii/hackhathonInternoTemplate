@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabaseClient } from "../supabaseClient";
 import { useWriteStoragePay } from "../generated";
-import { Address } from "viem";
+import { Address, parseGwei } from "viem";
 
 interface Task {
   id: string;
@@ -50,23 +50,23 @@ export default function Task() {
     event.preventDefault();
     await writeContractAsync({
       address: "0x68383898df826e4c00a80bb23f13573bc57755c9",
-      args: [task?.address as Address, BigInt(Number(task?.payment))],
-      value: BigInt(Number(task?.payment)),
+      args: [task?.address as Address],
+      value: parseGwei(String(task?.payment)),
     });
   };
 
   return (
     <main style={{ padding: "20px", fontFamily: "'Roboto', sans-serif", minHeight: "100vh" }}>
       <div
-          style={{
-            backgroundColor: "#fff",
-            padding: "20px",
-            borderRadius: "10px",
-            maxWidth: "600px",
-            margin: "0 auto",
-          }}
-      >
-        <div style={{ fontSize: "2.5rem", fontWeight: "700", marginBottom: "20px", textAlign: "center", color: "#333" }}>
+        style={{
+          backgroundColor: "#fff",
+          padding: "20px",
+          borderRadius: "10px",
+          maxWidth: "600px",
+          margin: "0 auto",
+        }}>
+        <div
+          style={{ fontSize: "2.5rem", fontWeight: "700", marginBottom: "20px", textAlign: "center", color: "#333" }}>
           {task?.task}
         </div>
         <div style={{ fontSize: "1.5rem", marginBottom: "30px", textAlign: "center" }}>
@@ -96,9 +96,17 @@ export default function Task() {
               type="submit"
               style={{
                 fontSize: "1.5rem",
-              }}
-            >
+              }}>
               Enviar arquivo
+            </button>
+            <button
+              onClick={handlePayment}
+              className="botao"
+              type="submit"
+              style={{
+                fontSize: "1.5rem",
+              }}>
+              Pagar
             </button>
           </div>
         </form>
