@@ -24,7 +24,7 @@ export default function App() {
     event.preventDefault();
     try {
       await writeContractAsync({
-        address: "0x4B0FfA3E5506f655De25c77FfCCC42508eF7FB91",
+        address: "0x68383898df826e4c00a80bb23f13573bc57755c9",
         args: [BigInt(payment), newTask],
       });
 
