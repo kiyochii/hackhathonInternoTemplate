@@ -65,13 +65,12 @@ export default function App() {
               value={newTask}
               onChange={handleSetTask}
               placeholder="Digite a tarefa a ser pedida...."
-              className="px-4 py-2 border rounded"
               style={{
                 fontFamily: "Arial, sans-serif",
                 borderRadius: "12px",
                 marginBottom: "24px",
                 width: "400px",
-                height: "80px",
+                height: "65px",
                 fontSize: "1.2rem",
                 padding: "10px",
                 overflowWrap: "break-word",
@@ -121,7 +120,6 @@ export default function App() {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              marginTop: "10px",
             }}>
             {isSuccess && (
               <p style={{ color: "green", fontSize: "1.5rem", fontWeight: "600" }}>Tarefa criada com sucesso!</p>

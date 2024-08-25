@@ -46,7 +46,6 @@ export default function TaskList() {
       height: '80vh', 
     }}>
 
-      {/* Div para imagem à esquerda */}
       <div style={{
         flex: '1', 
         display: 'flex', 
@@ -56,7 +55,6 @@ export default function TaskList() {
 <img src={fundoImage} style={{ maxWidth: '100%', maxHeight: '70vh' }} />
 </div>
 
-      {/* Div para conteúdo à direita */}
       <div style={{ 
         flex: '1', 
         display: 'flex', 

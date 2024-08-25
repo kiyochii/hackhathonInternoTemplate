@@ -51,7 +51,7 @@ function App() {
 
         <Route path="/availbletasks" element={<AvailableTasks />} />
         <Route path="/vendor/newtasks" element={<NewTasks />} />
-        <Route path="/vendor/mytask" element={<MyTasks />} />
+        {/*<Route path="/vendor/mytask" element={<MyTasks />} />*/}
         <Route path="/vendor/withdraw" element={<Withdraw />} />
         <Route path="/tasks" element={<Availabletasks />} />
         <Route path="/tasks/:id" element={<TaskDetail />} />
