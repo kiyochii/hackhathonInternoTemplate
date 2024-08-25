@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabaseClient } from "../supabaseClient";
 import { useWriteStoragePay } from "../generated";
-import { Address, parseEther } from "viem";
-import { storageAbi } from "../abi";
-import { useWriteContract } from "wagmi";
+import { Address } from "viem";
 
 interface Task {
   id: string;
@@ -17,7 +15,7 @@ export default function Task() {
   const { writeContractAsync } = useWriteStoragePay();
   const { id } = useParams<{ id: string }>(); // Extrair o id da URL com tipagem
   const [task, setTask] = useState<Task | null>(null);
-  const [file, setFile] = useState<File | null>(null);
+  const [link, setLink] = useState<string>("");
 
   useEffect(() => {
     supabaseClient
@@ -28,25 +26,26 @@ export default function Task() {
       .then(({ data }) => setTask(data));
   }, [id]);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setFile(event.target.files[0]);
-    }
+  const handleLinkChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLink(event.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (file) {
-      const { data, error } = await supabaseClient.storage.from("attachments").upload(`task-${id}/${file.name}`, file);
+    if (link && task) {
+      const { data, error } = await supabaseClient
+        .from("links")
+        .insert({ link, address: task.address, task: task.task });
 
       if (error) {
-        console.error("Erro ao fazer upload do arquivo:", error);
+        console.error("Erro ao enviar o link:", error);
       } else {
-        console.log("Arquivo enviado com sucesso:", data);
+        console.log("Link enviado com sucesso:", data);
       }
     }
   };
+
   const handlePayment = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     await writeContractAsync({
@@ -55,33 +54,52 @@ export default function Task() {
       value: BigInt(Number(task?.payment)),
     });
   };
+
   return (
-    <main style={{ padding: "20px" }}>
+    <main style={{ padding: "20px", fontFamily: "'Roboto', sans-serif", minHeight: "100vh" }}>
       <div
-        style={{
-          padding: "10px",
-          border: "none",
-        }}>
-        <div style={{ fontSize: "2.5rem", fontWeight: "700", marginBottom: "30px", textAlign: "center" }}>
+          style={{
+            backgroundColor: "#fff",
+            padding: "20px",
+            borderRadius: "10px",
+            maxWidth: "600px",
+            margin: "0 auto",
+          }}
+      >
+        <div style={{ fontSize: "2.5rem", fontWeight: "700", marginBottom: "20px", textAlign: "center", color: "#333" }}>
           {task?.task}
         </div>
         <div style={{ fontSize: "1.5rem", marginBottom: "30px", textAlign: "center" }}>
           <strong>Pagamento:</strong> {task?.payment}
         </div>
-        {
-          <p>
-            <strong>Address:</strong> {task?.address}
-          </p>
-        }
+
         <form onSubmit={handleSubmit} style={{ textAlign: "center", marginTop: "20px" }}>
-          <div className="file-upload-wrapper">
-            <input type="file" onChange={handleFileChange} className="file-upload-input" />
+          <div className="text-input-wrapper" style={{ marginBottom: "20px" }}>
+            <input
+              type="text"
+              onChange={handleLinkChange}
+              className="text-input"
+              style={{
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                fontSize: "1rem",
+                width: "100%",
+                boxSizing: "border-box",
+              }}
+              placeholder="Insira o link do drive contendo o arquivo aqui..."
+            />
           </div>
           <div style={{ marginTop: "15px" }}>
-            <button type="submit">Enviar Arquivo</button>
-          </div>
-          <div>
-            <button onClick={handlePayment}></button>
+            <button
+              className="botao"
+              type="submit"
+              style={{
+                fontSize: "1.5rem",
+              }}
+            >
+              Enviar arquivo
+            </button>
           </div>
         </form>
       </div>
