@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useAccount } from 'wagmi';
 import lampadaIcon from "../images/lampada.png";
 import saqueIcon from "../images/saque.png";
+import arquivoIcon from "../images/arquivo.png";
+
 
 export default function App() {
   const navigate = useNavigate();
@@ -96,16 +98,16 @@ export default function App() {
   }}
   disabled={!address} 
       ><img 
-        src={saqueIcon} 
+        src={arquivoIcon} 
         style={{ 
           width: "60px", 
           height: "60px", 
-          marginRight: "40px",             
+          marginRight: "40px",
           objectFit: "contain" 
           }} 
       />
-  <span style={{ flex: 1, textAlign: "center" }}>Minhas Tarefas</span>
-</button>
+    <span style={{ flex: 1, textAlign: "center", fontSize: "20px" }}>Minhas Tarefas</span>
+    </button>
 
 
     </main>
